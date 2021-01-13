@@ -17,8 +17,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve: async (_, {movieInput}) => {
-        const movie = await models.Film.create(movieInput);
-        return movie;
+        return models.Film.create(movieInput);
       }
     },
     login: {
@@ -32,7 +31,7 @@ const mutationType = new GraphQLObjectType({
         },
       },
       resolve: async (parent, {email, password}) => {
-        const user = await models.User.findOne({
+        const user = await models.Users.findOne({
           where: {
             email,
           }

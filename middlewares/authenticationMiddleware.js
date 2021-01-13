@@ -3,7 +3,7 @@ const config = require('../config/appConfig');
 const models = require('../models');
 
 const authenticationMiddleware = (req, res, next) => {
-    const token = req.headers.authorization.replace('Bearer ', '') || null;
+    const token = req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : null;
     jwt.verify(token, config.JWTSECRET, async (err, data) => {
         if(err) {
             next();
