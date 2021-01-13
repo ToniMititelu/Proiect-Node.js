@@ -48,6 +48,22 @@ const mutationType = new GraphQLObjectType({
         return null;
       },
     },
+    register: {
+      type: GraphQLString,
+      args: {
+        email: {
+          type: GraphQLNonNull(GraphQLString),
+        },
+        password: {
+          type: GraphQLNonNull(GraphQLString),
+        },
+      },
+      resolve: async (_, { email, password }) => {
+        const user = await models.Users.create({email, password: await bcrypt.hash(password, config.SALT_ROUNDS)});
+        return user.password;
+      }
+    }
+
   }
 });
 
