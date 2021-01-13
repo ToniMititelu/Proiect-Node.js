@@ -1,6 +1,8 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLString } = require('graphql');
 const models = require('../models');
 const movieType = require('./types/movieType');
+const etichetaType = require('./types/etichetaType');
+const etichetaInputType = require('./inputTypes/etichetaInputType');
 const movieInputType = require('./inputTypes/movieInputType');
 const jwt = require('jsonwebtoken');
 const config = require('../config/appConfig');
@@ -20,10 +22,37 @@ const mutationType = new GraphQLObjectType({
         return models.Film.create(movieInput);
       }
     },
-    createEticheta: {
-      type: GraphQLString,
+    deleteFilm: {
+      type: movieType,
       args: {
-
+        movieId: {
+          type: GraphQLInt
+        },
+      },
+      resolve: async(_, {movieId}) => {
+        return models.Film.destroy({where: {id: movieId}, force: true});
+      }
+    },
+    createEticheta: {
+      type: etichetaType,
+      args: {
+        etichetaInput: {
+          type: GraphQLNonNull(etichetaInputType)
+        },
+      },
+      resolve: async (_, {etichetaInput}) => {
+        return models.Eticheta.create(etichetaInput);
+      }
+    },
+    deleteEticheta: {
+      type: etichetaType,
+      args: {
+        etichetaId: {
+          type: GraphQLInt
+        },
+      },
+      resolve: async(_, {etichetaId}) => {
+        return models.Eticheta.destroy({where: {id: etichetaId}, force: true});
       }
     },
     createActor: {

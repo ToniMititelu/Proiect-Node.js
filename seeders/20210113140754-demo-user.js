@@ -24,7 +24,14 @@ module.exports = {
       updatedAt: new Date(),
     }));
 
+    const mockEtichete = new Array(10).fill().map(() => ({
+      nume: faker.internet.email(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }));
+
     await queryInterface.bulkInsert('Users', mockUsers, {});
+    await queryInterface.bulkInsert('Eticheta', mockEtichete, {});
   },
 
   down: async (queryInterface, Sequelize) => {
