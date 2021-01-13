@@ -104,7 +104,6 @@ const mutationType = new GraphQLObjectType({
         return user.password;
       }
     }
-
   }
 });
 
