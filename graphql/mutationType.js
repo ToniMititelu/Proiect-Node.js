@@ -20,6 +20,18 @@ const mutationType = new GraphQLObjectType({
         return models.Film.create(movieInput);
       }
     },
+    createEticheta: {
+      type: GraphQLString,
+      args: {
+
+      }
+    },
+    createActor: {
+      type: GraphQLString,
+      args: {
+
+      }
+    },
     login: {
       type: GraphQLString,
       args: {
